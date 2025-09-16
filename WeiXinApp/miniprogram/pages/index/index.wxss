@@ -1,0 +1,101 @@
+/**index.wxss**/
+/* 小车代号卡片 */
+.car_code_card {
+  margin: 10px;
+  background-color: #f6f6f6;
+}
+
+/* 是否可以使用的相关展示 */
+.using_and_nousing_card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  margin: 15px;
+}
+.background{
+  background: -webkit-linear-gradient(top,white,lightblue,white);
+}
+.using_or_nousing_card {
+  border: #000;
+  border-radius: 10px;
+}
+
+/* 叫车按钮 */
+.call_car_button {
+  background-color: #e6f1fc;
+  height: 40px;
+  width: 90px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #b9dbfd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1989FA;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+.call_car_button:active {
+  background-color: #c6daee;
+}
+
+/* 场景 */
+.scene {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid #ffffff;
+}
+
+.scene:active {
+  border: 1px solid #000000;
+}
+
+.scene_text {
+  margin-top: 5px;
+  margin-right: 16px;
+  color: #6C6C6C;
+}
+.page-section-gap{
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+
+.page-body-button {
+  margin-bottom: 30rpx;
+}
+
+.customCallout {
+  box-sizing: border-box;
+  background-color: #fff; 
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  width: 150px;
+  height: 40px;
+  display: inline-flex;
+  padding: 5px 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
+.content {
+  flex: 0 1 auto;
+  margin: 0 10px;
+  font-size: 14px;
+}

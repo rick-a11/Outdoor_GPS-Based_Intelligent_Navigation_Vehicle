@@ -1,0 +1,135 @@
+<view class="background">
+<!-- 标题文字部分 -->
+<view style="border: 1px solid #BBBBBB;border-radius: 10px;margin: 10px;">
+  <!-- 小车巡航 -->
+  <view wx:if="{{car_can_use}}" style="background-color: #EFEFEF;padding: 5px 10px;margin-left: 10px;margin-right: 80px;color: #7a2929;margin-top: 5px;">
+    小车状态：小车巡航中,欢迎使用！
+  </view>
+  <!-- 小车送宝 -->
+  <view wx:if="{{!car_can_use}}" style="background-color: #EFEFEF;padding: 5px 10px;margin-left: 10px;margin-right: 40px;color: #7a2929;margin-top: 5px;">
+    小车状态：小车送宝中，请排队预约哟！
+  </view>
+
+  <view class="using_and_nousing_card">
+    <!-- 可以使用 -->
+    <view style="border: 1px solid #BBBBBB;width: 50px;height: 50px;display: flex;flex-direction: column;justify-content: center;align-items: center;box-shadow: {{car_can_use==true?'2px 2px 6px 1px #ccc':'0'}};">
+      <image src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/can.png" style="height: 60px;width: 60px;opacity:{{car_can_use==true?'100%':'30%'}};" />
+    </view>
+    <!-- 不可以使用 -->
+    <view style="border: 1px solid #BBBBBB;width: 50px;height: 50px;display: flex;flex-direction: column;justify-content: center;align-items: center;box-shadow: {{!car_can_use?'2px 2px 6px 1px #ccc':'0'}};">
+      <view wx:if="{{identification==0 || identification==1}}">
+        <image src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/tingzhi.png" style="height: 50px;width: 50px;opacity:{{car_can_use==0?'100%':'30%'}};" />
+      </view>
+      <view wx:if="{{identification==2}}">
+        <image src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/paidui.gif" style="height: 70px;width: 70px; opacity:100%;" />
+      </view>
+    </view>
+  </view>
+
+
+  <!-- 可以使用文字显示 -->
+  <view wx:if="{{car_can_use}}">
+    <view style="display: flex;margin-left: 20px;justify-content: space-between;margin-bottom: 10px;">
+      <view style="color: #9A9A9A;">
+        小车距离您
+      </view>
+      <view style="color: #6C6C6C;margin-right: 10px;direction: rtl;">
+        {{distance}}m
+      </view>
+    </view>
+    <view style="display: flex;margin-left: 20px;justify-content: space-between;margin-bottom: 10px;">
+      <view style="color: #9A9A9A;">
+        小车预计到达所需时间
+      </view>
+      <view style="color: #6C6C6C;margin-right: 10px;direction: rtl;">
+        {{WaitTime}}分钟
+      </view>
+    </view>
+  </view>
+  <!-- 不可以使用文字显示 -->
+  <view wx:if="{{!car_can_use}}">
+    <view style="display: flex;margin-left: 20px;justify-content: space-between;margin-bottom: 10px;">
+      <view style="color: #9A9A9A;">
+        您当前所需等待人数
+      </view>
+      <view style="color: #6C6C6C;margin-right: 10px;direction: rtl;">
+        {{needWaitPeople}}人
+      </view>
+    </view>
+    <view wx:if="{{!car_can_use}}" style="display: flex;">
+    <button size="mini" type="primary" bind:tap="bookingCar" style="border-radius: 30px">{{identification==2?'取消预约':'点击预约'}}</button>
+  </view>
+  </view>
+<!--头部标识和地图-->
+<view style="border: 1px solid #BBBBBB;border-radius: 10px;margin: 5px;display: flex;flex-direction: column;justify-content: center;">
+  <view style="display: flex;justify-content: space-between;margin-top: 5px;">
+    <image src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/dingwei.gif" style="height: 40px;width: 40px;margin-left: 40px;"></image>
+    <view style="font-size: 16px;margin-top: 10px;margin-left: 1%;">
+      位置显示
+    </view>
+    <image src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/dingwei.gif" style="height: 40px;width: 40px;margin-right: 40px;"></image>
+  </view>
+  <!-- style="width: 100%; height: 300px;" -->
+  <view class="page-section page-section-gap" style="margin-top: 5px;">
+    <map
+      id="myMap"
+      style="width: 100%; height: 300px;"
+      latitude="{{latitude}}"
+      longitude="{{longitude}}"
+      bindmarkertap="markertap"
+      bindcallouttap="callouttap"
+      bindlabeltap="labeltap"
+      markers="{{markers}}"
+      polyline="{{polyline}}"
+      scale="16"
+    >
+    </map>
+  </view>
+</view>
+</view>
+<!-- 场景切换部分 -->
+<view style="border: 1px solid #54dde7;border-radius: 10px;margin: 10px;">
+  <view style="display: flex;justify-content: space-between;margin-top: 5px;">
+    <view style="font-size: 16px; margin-left: 10px; margin-top: 14px; width: 97rpx; height: 47rpx; display: block; box-sizing: border-box">
+      功能：
+    </view>
+  <image src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/yingyong.gif" style="height: 50px;width: 50px;margin-right: 70%;"></image>
+  </view> 
+
+  <view style="display: flex;margin: 10px;justify-content: space-around;">
+    <view class="scene" bind:tap="tonav" style="margin-left: 0px;">
+      <view style="width: 50px;height: 50px;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+      <image src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/keyong.gif" style="height: 55px;width: 55px;" />
+    </view>
+      <view class="scene_text" style="margin-left: 10px;">
+        送/还
+      </view>
+    </view>
+    <view class="scene" bind:tap="uploadgo">
+      <view style="width: 50px;height: 50px;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+      <image src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/xunhang.gif" style="height: 70px;width: 65px;" />
+    </view>
+      <view class="scene_text" >
+         巡航
+      </view>
+    </view>
+    <view class="scene" bind:tap="uploadstop">
+      <view style="width: 50px;height: 50px;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+      <image src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/tingzhi.png" style="height: 50px;width: 50px;opacity:40%;" />
+    </view>
+      <view class="scene_text" style="margin-left: 10px;">
+        暂停
+      </view>
+    </view>
+    <view class="scene" bind:tap="showReason">
+      <view style="width: 50px;height: 50px;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+      <image src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/shezhi.gif" style="height: 70px;width: 55px;" />
+    </view>
+      <view class="scene_text" style="margin-left: 10px;">
+        更多
+      </view>
+    </view>
+  </view>
+</view>
+</view>
+

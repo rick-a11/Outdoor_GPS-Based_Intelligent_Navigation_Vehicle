@@ -1,0 +1,51 @@
+<view class="background">
+  <view style="display: flex;justify-content: center;margin: 5px 0;">
+  <van-image width="200" height="90"  src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/xunhang.gif"  style="height: 112rpx; display: block; box-sizing: border-box"></van-image>
+</view>
+<!-- 标题文字部分 -->
+<view style="border: 1px solid #BBBBBB;border-radius: 10px;margin: 10px;">
+  <view wx:if="{{!car_can_use}}" style="background-color: #EFEFEF;padding: 5px 10px;margin-left: 20px;margin-right: 240px;color: #7a2929;">
+    小车运输中
+  </view>
+<!--头部标识和地图-->
+<view style="border: 1px solid #BBBBBB;border-radius: 10px;margin: 10px;display: flex;flex-direction: column;justify-content: center;">
+  <view style="display: flex;justify-content: space-between;margin-top: 5px;">
+    <image src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/dingwei.gif" style="height: 40px;width: 40px;margin-left: 40px;"></image>
+    <view style="font-size: 16px;margin-top: 10px;margin-left: 1%;">
+      路线规划显示
+    </view>
+    <image src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/dingwei.gif" style="height: 40px;width: 40px;margin-right: 40px;"></image>
+  </view>
+  <!-- style="width: 100%; height: 300px;" -->
+  <view class="page-section page-section-gap">
+    <map
+      id="myMap"
+      style="width: 100%; height: 400px;margin-bottom: 10px;"
+      latitude="{{latitude}}"
+      longitude="{{longitude}}"
+      bindmarkertap="markertap"
+      bindcallouttap="callouttap"
+      bindlabeltap="labeltap"
+      markers="{{markers}}"
+      polyline="{{polyline}}"
+      scale="16"
+    >
+    </map>
+  </view>
+</view>
+</view>
+<!--中间经纬度信息-->
+<view style="margin: 10px;border: 1px solid #BBBBBB;display: flex;justify-content: space-between;align-items: center;">
+  <view wx:if="{{!car_can_use}}" style="background-color: #EFEFEF;padding: 5px 10px;margin-left: 20px;margin-right: 10px;color: #7a2929;">
+    小车正在赶来的路上，请耐心等待{{waitTime}}分钟
+  </view>
+</view>
+<!-- 出发按钮 -->
+
+  <view class="set_out_button" bind:tap="songbao" style="margin-left: 35%;">
+    <image src="cloud://xuehaolin-9gpfu9n5283fbe3e.7875-xuehaolin-9gpfu9n5283fbe3e-1314104796/bao/chufa.gif" style="height: 80px;width: 80px;" />
+  </view>
+</view>
+
+
+
